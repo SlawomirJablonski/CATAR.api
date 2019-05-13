@@ -11,7 +11,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -22,27 +22,63 @@ public class Rent {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Long rentId;
+    public Long rentId;
 
     @ManyToOne
     @JoinColumn(name = "driver_id")
-    private Driver driver;
+    public Driver driver;
 
     @ManyToOne
     @JoinColumn(name = "car_id")
-    private Car car;
+    public Car car;
 
     @ManyToOne
     @JoinColumn(name = "city_id")
-    private City city;
+    public City city;
 
-    @Column(name = "from")
-    private LocalDateTime fromDate;
+    @Column(name = "fromDate")
+    public LocalDateTime fromDate;
 
-    @Column(name = "till")
-    private LocalDateTime tillDate;
+    @Column(name = "tillDate")
+    public LocalDateTime tillDate;
 
     @Column(name = "is_paid")
-    private boolean paid;
+    public boolean paid;
 
+    public Rent(Driver driver, Car car, City city, LocalDateTime fromDate, LocalDateTime tillDate, boolean paid) {
+        this.driver = driver;
+        this.car = car;
+        this.city = city;
+        this.fromDate = fromDate;
+        this.tillDate = tillDate;
+        this.paid = paid;
+    }
+
+    public Long getRentId() {
+        return rentId;
+    }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public LocalDateTime getFromDate() {
+        return fromDate;
+    }
+
+    public LocalDateTime getTillDate() {
+        return tillDate;
+    }
+
+    public boolean isPaid() {
+        return paid;
+    }
 }

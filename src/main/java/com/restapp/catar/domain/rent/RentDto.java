@@ -10,7 +10,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -22,4 +22,38 @@ public class RentDto {
     private LocalDateTime fromDate;
     private LocalDateTime tillDate;
     //private boolean paid;
+
+
+    public RentDto(Long rentId, Driver driver, Car car, City city, LocalDateTime fromDate, LocalDateTime tillDate) {
+        this.rentId = rentId;
+        this.driver = driver;
+        this.car = car;
+        this.city = city;
+        this.fromDate = fromDate;
+        this.tillDate = tillDate;
+    }
+
+    public Long getRentId() {
+        return rentId;
+    }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public LocalDateTime getFromDate() {
+        return fromDate;
+    }
+
+    public LocalDateTime getTillDate() {
+        return tillDate;
+    }
 }
