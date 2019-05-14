@@ -25,13 +25,10 @@ public class CatarControler {
     @GetMapping(value = "/rents")
     public List<RentDto> getRents() {
         return catarMapper.mapToRentDtoList(catarService.getRents());
-        //return catarMapper.mapToRentDtoList(catarService.getRents());
     }
 
     @PostMapping(value = "/rents", consumes = APPLICATION_JSON_VALUE)
     public void createRent(@RequestBody RentDto rentDto){
-
-
-        //catarService.saveRent(catarMapper.mapToRent(rentDto));
+        catarService.saveRent(catarMapper.mapToRent(rentDto));
     }
 }
