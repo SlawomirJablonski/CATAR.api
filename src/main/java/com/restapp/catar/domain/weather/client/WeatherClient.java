@@ -1,4 +1,4 @@
-package com.restapp.catar.weather.client;
+package com.restapp.catar.domain.weather.client;
 
 import com.restapp.catar.domain.weather.ConsolidatedWeather;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +33,7 @@ public class WeatherClient {
                     url,ConsolidatedWeather.class);
             return apiResponse;
         }catch(RuntimeException e){
+            //zmien na logger
             System.out.println("type of RestClientResponseException: " + e);
             return new ConsolidatedWeather();
         }
