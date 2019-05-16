@@ -1,7 +1,6 @@
 package com.restapp.catar.domain.car;
 
 import com.restapp.catar.domain.rent.Rent;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,12 +9,11 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity
-@Table(name = "car")
+@Entity(name = "car")
 public class Car {
 
     @Id
@@ -24,7 +22,7 @@ public class Car {
     private Long carId;
 
     @Column(name = "name")
-    public String name;
+    private String name;
 
     @Column(name = "seats")
     private int seatsQty;
@@ -47,7 +45,67 @@ public class Car {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    private List<Rent> productsInGroup = new ArrayList<>();
+    private List<Rent> rentsForCar = new ArrayList<>();
+
+    public static class CarBuilder{
+        private String name;
+        private int seatsQty;
+        private int doorsQty;
+        private Laguage laguage;
+        private boolean airCondition;
+        private GearBox gearBox;
+        private List<Rent> rentsForCar = new ArrayList<>();
+
+        public CarBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public CarBuilder seatsQty(int seatsQty) {
+            this.seatsQty = seatsQty;
+            return this;
+        }
+
+        public CarBuilder doorsQty(int doorsQty) {
+            this.doorsQty = doorsQty;
+            return this;
+        }
+
+        public CarBuilder laguage(Laguage laguage) {
+            this.laguage = laguage;
+            return this;
+        }
+
+        public CarBuilder airCondition(boolean airCondition) {
+            this.airCondition = airCondition;
+            return this;
+        }
+
+        public CarBuilder gearBox(GearBox gearBox) {
+            this.gearBox = gearBox;
+            return this;
+        }
+
+        public CarBuilder rentsForCar(Rent rent) {
+            rentsForCar.add(rent);
+            return this;
+        }
+
+        public Car build() {
+            return new Car(name,seatsQty,doorsQty,laguage,airCondition,gearBox,rentsForCar);
+        }
+    }
+
+    private Car(String name, int seatsQty, int doorsQty, Laguage laguage,
+                boolean airCondition, GearBox gearBox, List<Rent> rentsForCar) {
+        this.name = name;
+        this.seatsQty = seatsQty;
+        this.doorsQty = doorsQty;
+        this.laguage = laguage;
+        this.airCondition = airCondition;
+        this.gearBox = gearBox;
+        this.rentsForCar = rentsForCar;
+    }
 
     //Wyposażenie dodatkowe
 

@@ -12,14 +12,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/auto")
-public class AutoControler {
+public class AutoController {
 
     private static final String VW_MODELS = "59";
 
     private AutoClient autoClient;
 
     @Autowired
-    public AutoControler(AutoClient autoClient) {
+    public AutoController(AutoClient autoClient) {
         this.autoClient = autoClient;
     }
 

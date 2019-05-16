@@ -18,7 +18,7 @@ public class ConsolidatedWeather {
     @JsonProperty("consolidated_weather")
     private List<OneDayWeather> consolidatedWeather;
 
-    public List<OneDayWeather> getConsolidatedWeather() {
+    /*public List<OneDayWeather> getConsolidatedWeather() {
         return consolidatedWeather;
-    }
+    }*/
 }

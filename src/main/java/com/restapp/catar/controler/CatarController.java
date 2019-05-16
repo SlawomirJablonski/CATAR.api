@@ -12,12 +12,12 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/v1/catar")
-public class CatarControler {
+public class CatarController {
 
     private final CatarService catarService;
     private final CatarMapper catarMapper;
 
-    public CatarControler(CatarService catarService, CatarMapper catarMapper) {
+    public CatarController(CatarService catarService, CatarMapper catarMapper) {
         this.catarService = catarService;
         this.catarMapper = catarMapper;
     }

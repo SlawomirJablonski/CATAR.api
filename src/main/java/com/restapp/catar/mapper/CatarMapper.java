@@ -10,13 +10,27 @@ import java.util.stream.Collectors;
 @Component
 public class CatarMapper {
 
-    public Rent mapToRent(RentDto rentDto){
-        return new Rent(rentDto.getDriver(),rentDto.getCar(),rentDto.getCity(),rentDto.getFromDate(),rentDto.getTillDate(),true);
+    public Rent mapToRent(RentDto rentDto) {
+        return new Rent.RentBuilder()
+                .driver(rentDto.getDriver())
+                .car(rentDto.getCar())
+                .city(rentDto.getCity())
+                .fromDate(rentDto.getFromDate())
+                .tillDate(rentDto.getTillDate())
+                .paid(true)
+                .build();
     }
 
     public List<RentDto> mapToRentDtoList(List<Rent> rents) {
         return rents.stream()
-                .map(rent -> new RentDto(rent.getRentId(),rent.getDriver(),rent.getCar(),rent.getCity(),rent.getFromDate(),rent.getTillDate()))
+                .map(rent -> new RentDto.RentDtoBuilder()
+                        .rentId(rent.getRentId())
+                        .driver(rent.getDriver())
+                        .car(rent.getCar())
+                        .city(rent.getCity())
+                        .fromDate(rent.getFromDate())
+                        .tillDate(rent.getTillDate())
+                        .build())
                 .collect(Collectors.toList());
     }
 }

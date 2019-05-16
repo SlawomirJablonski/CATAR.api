@@ -11,13 +11,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/weather")
-public class WeatherControler {
+public class WeatherController {
 
 
     private WeatherClient weatherClient;
 
     @Autowired
-    public WeatherControler(WeatherClient weatherClient) {
+    public WeatherController(WeatherClient weatherClient) {
         this.weatherClient = weatherClient;
     }
 

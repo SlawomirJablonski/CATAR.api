@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,11 +19,11 @@ public class Mark {
     @JsonProperty("codigo")
     private String code;
 
-    public String getName() {
+    /*public String getName() {
         return name;
     }
 
     public String getCode() {
         return code;
-    }
+    }*/
 }

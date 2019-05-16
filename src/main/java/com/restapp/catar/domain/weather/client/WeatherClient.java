@@ -9,7 +9,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 
-
 @Component
 public class WeatherClient {
 
