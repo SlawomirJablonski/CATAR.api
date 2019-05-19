@@ -1,5 +1,7 @@
 package com.restapp.catar.mapper;
 
+import com.restapp.catar.domain.city.City;
+import com.restapp.catar.domain.city.CityDto;
 import com.restapp.catar.domain.rent.Rent;
 import com.restapp.catar.domain.rent.RentDto;
 import org.springframework.stereotype.Component;
@@ -32,5 +34,16 @@ public class CatarMapper {
                         .tillDate(rent.getTillDate())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    public CityDto mapToCityDto(City city){
+        return new CityDto.CityDtoBuilder()
+                .cityId(city.getCityId())
+                .name(city.getName())
+                .airport(city.getAirport())
+                .weather(city.getWeather())
+                .temperature(city.getTemperature())
+                .build();
+
     }
 }

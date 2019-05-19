@@ -1,6 +1,8 @@
 package com.restapp.catar.domain.weather.client;
 
 import com.restapp.catar.domain.weather.ConsolidatedWeather;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -12,10 +14,12 @@ import java.net.URI;
 @Component
 public class WeatherClient {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(WeatherClient.class);
     private static final String WARSAW = "location/523920/";
+    private static final String BERLIN = "location/638242/";
+    private static final String PARIS = "location/615702/";
 
     private final String weatherApiEndpoint;
-
     private final RestTemplate restTemplate;
 
     @Autowired
@@ -24,22 +28,21 @@ public class WeatherClient {
         this.restTemplate = restTemplate;
     }
 
-    public ConsolidatedWeather getConsolidatedWeatherForWarsaw(){
-        URI url = buildWarsawUrl();
+    public ConsolidatedWeather getConsolidatedWeather(String city){
+
+        URI url = buildWarsawUrl(city);
 
         try{
-            ConsolidatedWeather apiResponse = restTemplate.getForObject(
+            return restTemplate.getForObject(
                     url,ConsolidatedWeather.class);
-            return apiResponse;
         }catch(RuntimeException e){
-            //zmien na logger
-            System.out.println("type of RestClientResponseException: " + e);
+            LOGGER.error(e.getMessage(), e);
             return new ConsolidatedWeather();
         }
     }
 
-    private URI buildWarsawUrl(){
-        return UriComponentsBuilder.fromHttpUrl(weatherApiEndpoint + WARSAW)
+    private URI buildWarsawUrl(String city){
+        return UriComponentsBuilder.fromHttpUrl(weatherApiEndpoint + city)
                 .build().encode().toUri();
     }
 }

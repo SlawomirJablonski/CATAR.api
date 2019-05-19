@@ -1,10 +1,11 @@
-package com.restapp.catar.controler;
+package com.restapp.catar.controller;
 
 import com.restapp.catar.domain.weather.OneDayWeather;
 import com.restapp.catar.domain.weather.client.WeatherClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -12,7 +13,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/weather")
 public class WeatherController {
-
 
     private WeatherClient weatherClient;
 
@@ -22,16 +22,16 @@ public class WeatherController {
     }
 
     @GetMapping(value = "/getWeather")
-    public void getWeather() {
+    public List<OneDayWeather> getWeather(@RequestParam String city) {
 
-        List<OneDayWeather> lists = weatherClient.getConsolidatedWeatherForWarsaw().getConsolidatedWeather();
+        return weatherClient.getConsolidatedWeather(city).getConsolidatedWeather();
 
         //return weatherClient.getConsolidatedWeatherForWarsaw().getConsolidatedWeather();
 
-        for (OneDayWeather w:lists) {
+        /*for (OneDayWeather w:lists) {
             System.out.println(w.getWeatherDate()+", "+w.getTempOfDay());
 
-        }
+        }*/
 
     }
 

@@ -1,4 +1,4 @@
-package com.restapp.catar.controler;
+package com.restapp.catar.controller;
 
 import com.restapp.catar.domain.auto.Mark;
 import com.restapp.catar.domain.auto.Model;
