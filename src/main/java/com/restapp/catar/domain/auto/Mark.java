@@ -19,11 +19,8 @@ public class Mark {
     @JsonProperty("codigo")
     private String code;
 
-    /*public String getName() {
+    @Override
+    public String toString() {
         return name;
     }
-
-    public String getCode() {
-        return code;
-    }*/
 }

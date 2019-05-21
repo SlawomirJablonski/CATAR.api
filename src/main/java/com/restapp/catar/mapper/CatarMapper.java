@@ -2,6 +2,8 @@ package com.restapp.catar.mapper;
 
 import com.restapp.catar.domain.city.City;
 import com.restapp.catar.domain.city.CityDto;
+import com.restapp.catar.domain.driver.Driver;
+import com.restapp.catar.domain.driver.DriverDto;
 import com.restapp.catar.domain.rent.Rent;
 import com.restapp.catar.domain.rent.RentDto;
 import org.springframework.stereotype.Component;
@@ -45,5 +47,17 @@ public class CatarMapper {
                 .temperature(city.getTemperature())
                 .build();
 
+    }
+
+    public Driver mapToDriver(DriverDto driverDto){
+        return new Driver.DriverBuilder()
+                .title(driverDto.getTitle())
+                .name(driverDto.getName())
+                .surName(driverDto.getSurName())
+                .email(driverDto.getEmail())
+                .build();
+    }
+    public DriverDto mapToDroverDto(Driver driver){
+        return new DriverDto(driver.getTitle(),driver.getName(),driver.getSurName(),driver.getEmail());
     }
 }

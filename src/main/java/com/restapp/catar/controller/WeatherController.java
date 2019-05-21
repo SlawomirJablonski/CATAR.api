@@ -23,16 +23,7 @@ public class WeatherController {
 
     @GetMapping(value = "/getWeather")
     public List<OneDayWeather> getWeather(@RequestParam String city) {
-
         return weatherClient.getConsolidatedWeather(city).getConsolidatedWeather();
-
-        //return weatherClient.getConsolidatedWeatherForWarsaw().getConsolidatedWeather();
-
-        /*for (OneDayWeather w:lists) {
-            System.out.println(w.getWeatherDate()+", "+w.getTempOfDay());
-
-        }*/
-
     }
 
 }

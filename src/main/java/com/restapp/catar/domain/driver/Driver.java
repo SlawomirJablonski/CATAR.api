@@ -1,6 +1,7 @@
 package com.restapp.catar.domain.driver;
 
 import com.restapp.catar.domain.rent.Rent;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@EqualsAndHashCode
 @NoArgsConstructor
 @Getter
 @Setter
@@ -35,11 +37,14 @@ public class Driver {
     @Column(name = "phone")
     private String phone;
 
+    @Column(name = "token")
+    private Long token;
+
     @OneToMany(
             targetEntity = Rent.class,
             mappedBy = "driver",
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
+            fetch = FetchType.EAGER
     )
     private List<Rent> rentsForTheDriver = new ArrayList<>();
 
@@ -49,6 +54,7 @@ public class Driver {
         private String surName;
         private String email;
         private String phone;
+        private Long token;
         private List<Rent> rentsForTheDriver = new ArrayList<>();
 
         public DriverBuilder title(Title title){
@@ -71,18 +77,22 @@ public class Driver {
             this.phone = phone;
             return this;
         }
+        public DriverBuilder token(Long token){
+            this.token = token;
+            return this;
+        }
         public DriverBuilder rentsForTheDriver(Rent rent){
             rentsForTheDriver.add(rent);
             return this;
         }
 
         public Driver build(){
-            return new Driver(title, name, surName, email, phone, rentsForTheDriver);
+            return new Driver(title, name, surName, email, phone, token, rentsForTheDriver);
         }
 
     }
 
-    private Driver(Title title, String name, String surName, String email, String phone, List<Rent> rentsForTheDriver) {
+    private Driver(Title title, String name, String surName, String email, String phone, Long token, List<Rent> rentsForTheDriver) {
         this.title = title;
         this.name = name;
         this.surName = surName;

@@ -14,4 +14,9 @@ public class Model {
 
     @JsonProperty("nome")
     private String name;
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

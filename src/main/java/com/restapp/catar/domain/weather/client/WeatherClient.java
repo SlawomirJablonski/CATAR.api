@@ -15,9 +15,6 @@ import java.net.URI;
 public class WeatherClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WeatherClient.class);
-    private static final String WARSAW = "location/523920/";
-    private static final String BERLIN = "location/638242/";
-    private static final String PARIS = "location/615702/";
 
     private final String weatherApiEndpoint;
     private final RestTemplate restTemplate;

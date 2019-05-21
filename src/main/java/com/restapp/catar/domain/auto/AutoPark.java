@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AutoPark {
+
     @JsonProperty("modelos")
     private Model[] models;
+
 }

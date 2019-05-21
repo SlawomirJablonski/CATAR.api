@@ -1,12 +1,8 @@
 package com.restapp.catar.domain.city;
 
-import com.restapp.catar.domain.rent.Rent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @NoArgsConstructor
 @Getter

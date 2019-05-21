@@ -17,6 +17,10 @@ import java.util.List;
 @Entity(name = "city")
 public class City {
 
+    public static final String WARSAW = "location/523920/";
+    public static final String BERLIN = "location/638242/";
+    public static final String PARIS = "location/615702/";
+
     private static final String WAW_PORT_1 = "Warsaw Chopin Airport (WAW)";
     private static final String WAW_PORT_2 = "Warsaw Modlin Airport (WMI)";
     private static final String WRO_PORT = "Wroclaw Airport (WRO)";
