@@ -2,7 +2,7 @@ package com.restapp.catar.service;
 
 import com.restapp.catar.domain.city.City;
 import com.restapp.catar.domain.driver.Driver;
-import com.restapp.catar.domain.rent.Rent;
+import com.restapp.catar.domain.rent.BasicRent;
 import com.restapp.catar.repository.CityRepository;
 import com.restapp.catar.repository.DriverRepository;
 import com.restapp.catar.repository.RentRepository;
@@ -36,12 +36,16 @@ public class CatarService {
 
     public City saveCity(final City city){return cityRepository.save(city);}
 
-    public List<Rent> getRents() {
+    public Optional<BasicRent> getRentById(final Long id){
+        return rentRepository.findById(id);
+    }
+
+    public List<BasicRent> getRents() {
         return rentRepository.findAll();
     }
 
-    public Rent saveRent(final Rent rent){
-        return rentRepository.save(rent);
+    public BasicRent saveRent(final BasicRent basicRent){
+        return rentRepository.save(basicRent);
     }
 
     public Optional<City> getCityByName(final String name){

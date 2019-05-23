@@ -1,6 +1,6 @@
 package com.restapp.catar.domain.driver;
 
-import com.restapp.catar.domain.rent.Rent;
+import com.restapp.catar.domain.rent.BasicRent;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,12 +41,12 @@ public class Driver {
     private Long token;
 
     @OneToMany(
-            targetEntity = Rent.class,
+            targetEntity = BasicRent.class,
             mappedBy = "driver",
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
     )
-    private List<Rent> rentsForTheDriver = new ArrayList<>();
+    private List<BasicRent> rentsForTheDriver = new ArrayList<>();
 
     public static class DriverBuilder{
         private Title title;
@@ -55,7 +55,7 @@ public class Driver {
         private String email;
         private String phone;
         private Long token;
-        private List<Rent> rentsForTheDriver = new ArrayList<>();
+        private List<BasicRent> rentsForTheDriver = new ArrayList<>();
 
         public DriverBuilder title(Title title){
             this.title = title;
@@ -81,8 +81,8 @@ public class Driver {
             this.token = token;
             return this;
         }
-        public DriverBuilder rentsForTheDriver(Rent rent){
-            rentsForTheDriver.add(rent);
+        public DriverBuilder rentsForTheDriver(BasicRent basicRent){
+            rentsForTheDriver.add(basicRent);
             return this;
         }
 
@@ -92,7 +92,7 @@ public class Driver {
 
     }
 
-    private Driver(Title title, String name, String surName, String email, String phone, Long token, List<Rent> rentsForTheDriver) {
+    private Driver(Title title, String name, String surName, String email, String phone, Long token, List<BasicRent> rentsForTheDriver) {
         this.title = title;
         this.name = name;
         this.surName = surName;

@@ -5,15 +5,17 @@ import com.restapp.catar.domain.city.CityDto;
 import com.restapp.catar.domain.driver.Driver;
 import com.restapp.catar.domain.driver.DriverDto;
 import com.restapp.catar.domain.driver.TokenService;
-import com.restapp.catar.domain.rent.RentDto;
+import com.restapp.catar.domain.rent.*;
 import com.restapp.catar.exception.CityByNameNotFoundException;
 import com.restapp.catar.exception.CityNotFoundException;
 import com.restapp.catar.exception.DriverNotFoundException;
+import com.restapp.catar.exception.RentNotFoundException;
 import com.restapp.catar.mapper.CatarMapper;
 import com.restapp.catar.service.CatarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -23,10 +25,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @CrossOrigin("*")
 @RequestMapping("/v1/catar")
 public class CatarController {
-
-    private static final String WARSAW = "location/523920/";
-    private static final String BERLIN = "location/638242/";
-    private static final String PARIS = "location/615702/";
 
     private final CatarService catarService;
     private final CatarMapper catarMapper;
@@ -42,13 +40,48 @@ public class CatarController {
     }
 
     @GetMapping(value = "/rents")
-    public List<RentDto> getRents() {
+    public List<BasicRentDto> getRents() {
         return catarMapper.mapToRentDtoList(catarService.getRents());
     }
 
     @PostMapping(value = "/rents", consumes = APPLICATION_JSON_VALUE)
-    public void createRent(@RequestBody RentDto rentDto){
-        catarService.saveRent(catarMapper.mapToRent(rentDto));
+    public void createRent(@RequestBody BasicRentDto basicRentDto){
+        catarService.saveRent(catarMapper.mapToRent(basicRentDto));
+    }
+
+    @PutMapping("/rents/{rent}{option}")
+    public BasicRentDto updateRent(@RequestBody BasicRentDto basicRentDto, @RequestParam String option)throws RentNotFoundException {
+        BasicRent foundetRent = catarService.getRentById(basicRentDto.getRentId())
+                .orElseThrow(() -> new RentNotFoundException(basicRentDto.getRentId()));
+
+        Rent theRent = new BasicRent.RentBuilder()
+                .driver(foundetRent.getDriver())
+                .car(foundetRent.getCar())
+                .fromDate(foundetRent.getFromDate())
+                .tillDate(foundetRent.getTillDate())
+                .paid(foundetRent.isPaid())
+                .build();
+
+        switch (option) {
+            case "child":
+                theRent = new BasicRentChildDecorator(theRent);
+            case "driver":
+                theRent = new BasicRentDriverDecorator(theRent);
+            case "gps":
+                theRent = new BasicRentGpsDecorator(theRent);
+            case "booster":
+                theRent = new BasicRentBoosterDecorator(theRent);
+            case "baby":
+                theRent = new BasicRentBabyDecorator(theRent);
+        }
+
+        BigDecimal newCost = theRent.getCost();
+        String newOptions = theRent.getOptions();
+        foundetRent.setRentCost(newCost);
+        foundetRent.setRentOptions(newOptions);
+        catarService.saveRent(foundetRent);
+
+        return catarMapper.mapToRentDto(foundetRent);
     }
 
     @GetMapping(value = "/cities")
@@ -115,6 +148,17 @@ public class CatarController {
         updateCityWeather("Paris");
     }
 
+    @PostMapping("/drivers")
+    public void createDriver(@RequestBody DriverDto driverDto) {
+        catarService.saveDriver(catarMapper.mapToDriver(driverDto));
+    }
+
+    @PutMapping(value = "generateToken")
+    public void generateToken(@RequestParam Long driverId) throws DriverNotFoundException, ExecutionException {
+        Driver theDriver = catarService.getDriverById(driverId).orElseThrow(()->new DriverNotFoundException(driverId));
+        theDriver.setToken(tokenService.getDriverCache().get(theDriver));
+    }
+
     private String determineLocation(String city){
         switch (city) {
             case "Warsaw":
@@ -125,16 +169,5 @@ public class CatarController {
                 return City.PARIS;
         }
         return "";
-    }
-
-    @PostMapping("/drivers")
-    public void createDriver(@RequestBody DriverDto driverDto) {
-        catarService.saveDriver(catarMapper.mapToDriver(driverDto));
-    }
-
-    @PutMapping(value = "generateToken")
-    public void generateToken(@RequestParam Long driverId) throws DriverNotFoundException, ExecutionException {
-        Driver theDriver = catarService.getDriverById(driverId).orElseThrow(()->new DriverNotFoundException(driverId));
-        theDriver.setToken(tokenService.getDriverCache().get(theDriver));
     }
 }

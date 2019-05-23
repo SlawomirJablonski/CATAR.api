@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-public class RentDto {
+public class BasicRentDto {
     private Long rentId;
     private Driver driver;
     private Car car;
@@ -53,12 +53,12 @@ public class RentDto {
             return this;
         }
 
-        public RentDto build(){
-            return new RentDto(rentId, driver, car, city, fromDate, tillDate);
+        public BasicRentDto build(){
+            return new BasicRentDto(rentId, driver, car, city, fromDate, tillDate);
         }
     }
 
-    private RentDto(Long rentId, Driver driver, Car car, City city, LocalDateTime fromDate, LocalDateTime tillDate) {
+    private BasicRentDto(Long rentId, Driver driver, Car car, City city, LocalDateTime fromDate, LocalDateTime tillDate) {
         this.rentId = rentId;
         this.driver = driver;
         this.car = car;

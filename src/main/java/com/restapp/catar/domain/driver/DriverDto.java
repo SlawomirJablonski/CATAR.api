@@ -1,6 +1,6 @@
 package com.restapp.catar.domain.driver;
 
-import com.restapp.catar.domain.rent.Rent;
+import com.restapp.catar.domain.rent.BasicRent;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +20,7 @@ public class DriverDto {
     private String surName;
     private String email;
     private String phone;
-    private List<Rent> rentsForTheDriver = new ArrayList<>();
+    private List<BasicRent> rentsForTheDriver = new ArrayList<>();
 
     public DriverDto(Title title, String name, String surName, String email) {
         this.title = title;

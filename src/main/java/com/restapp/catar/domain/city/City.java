@@ -1,6 +1,6 @@
 package com.restapp.catar.domain.city;
 
-import com.restapp.catar.domain.rent.Rent;
+import com.restapp.catar.domain.rent.BasicRent;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -52,20 +52,20 @@ public class City {
     private double temperature;
 
     @OneToMany(
-            targetEntity = Rent.class,
+            targetEntity = BasicRent.class,
             mappedBy = "city",
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
             //fetch = FetchType.LAZY
     )
-    private List<Rent> rentsForTheCity = new ArrayList<>();
+    private List<BasicRent> rentsForTheCity = new ArrayList<>();
 
     public static class CityBuilder{
         private String name;
         private String airport;
         private String weather;
         private double temperature;
-        private List<Rent> rentsForTheCity = new ArrayList<>();
+        private List<BasicRent> rentsForTheCity = new ArrayList<>();
 
         public CityBuilder name(String name) {
             this.name = name;
@@ -87,8 +87,8 @@ public class City {
             return this;
         }
 
-        public CityBuilder rentsForTheCity(Rent rent) {
-            rentsForTheCity.add(rent);
+        public CityBuilder rentsForTheCity(BasicRent basicRent) {
+            rentsForTheCity.add(basicRent);
             return this;
         }
 
@@ -97,7 +97,7 @@ public class City {
         }
     }
 
-    private City(String name, String airport, String weather, double temperature, List<Rent> rentsForTheCity) {
+    private City(String name, String airport, String weather, double temperature, List<BasicRent> rentsForTheCity) {
         this.name = name;
         this.airport = airport;
         this.weather = weather;

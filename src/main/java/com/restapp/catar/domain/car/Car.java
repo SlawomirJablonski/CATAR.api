@@ -1,6 +1,6 @@
 package com.restapp.catar.domain.car;
 
-import com.restapp.catar.domain.rent.Rent;
+import com.restapp.catar.domain.rent.BasicRent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -40,12 +40,12 @@ public class Car {
     private GearBox gearBox;
 
     @OneToMany(
-            targetEntity = Rent.class,
+            targetEntity = BasicRent.class,
             mappedBy = "car",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    private List<Rent> rentsForCar = new ArrayList<>();
+    private List<BasicRent> rentsForCar = new ArrayList<>();
 
     public static class CarBuilder{
         private String name;
@@ -54,7 +54,7 @@ public class Car {
         private Laguage laguage;
         private boolean airCondition;
         private GearBox gearBox;
-        private List<Rent> rentsForCar = new ArrayList<>();
+        private List<BasicRent> rentsForCar = new ArrayList<>();
 
         public CarBuilder name(String name) {
             this.name = name;
@@ -86,8 +86,8 @@ public class Car {
             return this;
         }
 
-        public CarBuilder rentsForCar(Rent rent) {
-            rentsForCar.add(rent);
+        public CarBuilder rentsForCar(BasicRent basicRent) {
+            rentsForCar.add(basicRent);
             return this;
         }
 
@@ -97,7 +97,7 @@ public class Car {
     }
 
     private Car(String name, int seatsQty, int doorsQty, Laguage laguage,
-                boolean airCondition, GearBox gearBox, List<Rent> rentsForCar) {
+                boolean airCondition, GearBox gearBox, List<BasicRent> rentsForCar) {
         this.name = name;
         this.seatsQty = seatsQty;
         this.doorsQty = doorsQty;
