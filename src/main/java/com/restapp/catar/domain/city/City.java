@@ -56,7 +56,6 @@ public class City {
             mappedBy = "city",
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
-            //fetch = FetchType.LAZY
     )
     private List<BasicRent> rentsForTheCity = new ArrayList<>();
 

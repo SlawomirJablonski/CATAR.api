@@ -29,7 +29,6 @@ import java.time.LocalDate;
 @Route("catar")
 public class MainView extends VerticalLayout {
 
-
     private CatarController catarController;
     private AutoController autoController;
     private Grid<City> grid;

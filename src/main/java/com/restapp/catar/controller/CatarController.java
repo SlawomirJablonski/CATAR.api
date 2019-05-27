@@ -51,15 +51,15 @@ public class CatarController {
 
     @PutMapping("/rents/{rent}{option}")
     public BasicRentDto updateRent(@RequestBody BasicRentDto basicRentDto, @RequestParam String option)throws RentNotFoundException {
-        BasicRent foundetRent = catarService.getRentById(basicRentDto.getRentId())
+        BasicRent foundRent = catarService.getRentById(basicRentDto.getRentId())
                 .orElseThrow(() -> new RentNotFoundException(basicRentDto.getRentId()));
 
         Rent theRent = new BasicRent.RentBuilder()
-                .driver(foundetRent.getDriver())
-                .car(foundetRent.getCar())
-                .fromDate(foundetRent.getFromDate())
-                .tillDate(foundetRent.getTillDate())
-                .paid(foundetRent.isPaid())
+                .driver(foundRent.getDriver())
+                .car(foundRent.getCar())
+                .fromDate(foundRent.getFromDate())
+                .tillDate(foundRent.getTillDate())
+                .paid(foundRent.isPaid())
                 .build();
 
         switch (option) {
@@ -77,11 +77,11 @@ public class CatarController {
 
         BigDecimal newCost = theRent.getCost();
         String newOptions = theRent.getOptions();
-        foundetRent.setRentCost(newCost);
-        foundetRent.setRentOptions(newOptions);
-        catarService.saveRent(foundetRent);
+        foundRent.setRentCost(newCost);
+        foundRent.setRentOptions(newOptions);
+        catarService.saveRent(foundRent);
 
-        return catarMapper.mapToRentDto(foundetRent);
+        return catarMapper.mapToRentDto(foundRent);
     }
 
     @GetMapping(value = "/cities")
@@ -120,7 +120,7 @@ public class CatarController {
         catarService.saveCity(pa);
     }
 
-    @PutMapping("/updateCity")
+    @PutMapping("/cities")
     public CityDto updateCity(@RequestBody CityDto cityDto)throws CityNotFoundException {
         City city = catarService.getCityById(cityDto.getCityId())
                 .orElseThrow(() -> new CityNotFoundException(cityDto.getCityId()));
@@ -131,7 +131,7 @@ public class CatarController {
         return catarMapper.mapToCityDto(city);
     }
 
-    @PutMapping("/updateCityWeather")
+    @PutMapping("/cities/weather")
     public void updateCityWeather(@RequestParam String city){
         double currentTemperature = weatherController.getWeather(determineLocation(city)).get(0).getTempOfDay();
         String currentWeatherDescription = weatherController.getWeather(determineLocation(city)).get(0).getWeatherDescription();
@@ -141,7 +141,7 @@ public class CatarController {
         catarService.saveCity(theCity);
     }
 
-    @PutMapping("/updateMyCitiesWeather")
+    @PutMapping("/mycities/weather")
     public void updateMyCitiesWeather(){
         updateCityWeather("Warsaw");
         updateCityWeather("Berlin");

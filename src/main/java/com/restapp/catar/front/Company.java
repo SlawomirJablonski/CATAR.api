@@ -8,6 +8,6 @@ import com.vaadin.flow.router.Route;
 public class Company extends VerticalLayout {
 
     Company(){
-        add("Coś");
+        add("under construction");
     }
 }
